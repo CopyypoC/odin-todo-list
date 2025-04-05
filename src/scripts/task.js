@@ -6,6 +6,26 @@ export class Task {
         this.priority = validateNumber(priority);
         this.isCompleted = isCompleted;
     }
+
+    editTitle = (newTitle) => {
+        this.title = newTitle;
+    }
+
+    editDescription = (newDescription) => {
+        this.description = newDescription;
+    }
+
+    editDueDate = (newDueDate) => {
+        this.dueDate = newDueDate;
+    }
+
+    editPriority = (newPriority) => {
+        this.priority = newPriority;
+    }
+
+    editIsCompleted = (newIsCompleted) => {
+        this.isCompleted = newIsCompleted;
+    }
 }
 
 function validateText(text) {
@@ -36,4 +56,10 @@ function validateDate(date) {
         throw new Error('Due date not properly formatted - YYYY-MM-DDTHH:mm');
     }
     return date;
+}
+
+// date comes in format YYYY-MM-DD from <input type='date'>
+// time comes in format HH:mm from <input type='time>
+function formatDate(date, time) {
+    return date + 'T' + time;
 }

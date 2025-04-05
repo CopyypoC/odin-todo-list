@@ -10,4 +10,8 @@ export class Project {
     removeTask = (task) => {
         delete this[task.title];
     }
+
+    editProjectName = (newName) => {
+        this.name = newName;
+    }
 }
