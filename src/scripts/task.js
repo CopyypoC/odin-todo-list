@@ -42,8 +42,8 @@ function validateNumber(num) {
     if (typeof num !== 'number') {
         throw new Error('Priority is not a number');
     }
-    if (num < 1) {
-        throw new Error('Priority is less than 1');
+    if (num < 1 || num > 4) {
+        throw new Error('Priority not in range of 1-4');
     }
     return num;
 }
