@@ -40,7 +40,7 @@
 //     }
 // }
 
-
+import "../styles/style.css"
 import { Task } from "./task";
 import { Project } from "./project";
 const projectList = {};
@@ -50,8 +50,3 @@ let school = new Project('School');
 let english = new Task('English', 'essay', '1222-01-01T01:01', 1);
 school.addTask(english);
 console.log(school);
-
-let date = document.querySelector('.date');
-date.addEventListener('change', (e) => {
-    console.log(e.target.value);
-})

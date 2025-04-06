@@ -1,0 +1,140 @@
+/* Reset Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* System Font Stack */
+body {
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* Custom Properties */
+:root {
+    --font-color: #ffffff;
+    --project-list-bg-color: #40263B;
+    --btn-bg-color: #89608E;
+    --btn-border-color: #BA9593;
+    --main-bg-color: #623B5A;
+    --margin-top-align: 32px;
+}
+
+/* Layout and General Styles */
+body {
+    color: var(--font-color);
+    background-color: var(--main-bg-color);
+}
+
+button {
+    color: var(--font-color);
+    background-color: var(--btn-bg-color);
+    border: 3px solid var(--btn-border-color);
+    border-radius: 6px;
+    min-width: max-content;
+}
+
+.container {
+    display: grid;
+    grid-template: "project-list project" 1fr / 200px 1fr;
+}
+
+/* Project List */
+.project-list-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--project-list-bg-color);
+    min-height: 100vh;
+}
+
+.project-list-header {
+    text-align: center;
+    text-decoration: underline;
+    margin: 28px 0 18px;
+}
+
+.new-project-btn {
+    align-self: center;
+    margin-top: var(--margin-top-align);
+    padding: 10px 1.3rem;
+    font-size: 1rem;
+}
+
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style-type: disc;
+    padding-inline-start: 30px;
+}
+
+/* Project */
+.project-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 48px;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--margin-top-align);
+}
+
+.task-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.task-container {
+    display: flex;
+}
+
+.task-project-title {
+    font-size: 2rem;
+}
+
+.new-task-btn {
+    padding: 14px 1.5rem;
+    font-size: 1.1rem;
+}
+
+input[type="checkbox"] {
+    display: grid;
+    place-content: center;
+    appearance: none;
+    margin: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid gray;
+    margin-right: 12px;
+    border-radius: 4px;
+    background-color: white;
+}

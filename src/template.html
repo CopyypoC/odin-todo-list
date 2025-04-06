@@ -6,14 +6,50 @@
     <title>Document</title>
 </head>
 <body>
-    <nav>
-        <button type="button" class="new-project-btn">New Project</button>
-        <h1 class="project-header">Projects</h2>
-        <ul class="project-list">
-            <li class="project">Default Project</li>
-        </ul>
-    </nav>
-    <h2 class="title">Default Project</h1>
-    <button type="button" class="new-task-btn">New Task</button>
+    <div class="container">
+        <nav class="project-list-container">
+            <button type="button" class="new-project-btn btn">New Project</button>
+            <h1 class="project-list-header">Projects</h2>
+            <ul class="project-list">
+                <li class="project-title">Default Project with a long name to test</li>
+                <li class="project-title">Default Project</li>
+                <li class="project-title">Default Project</li>
+                <li class="project-title">Default Project</li>
+                <li class="project-title">Default Project</li>
+            </ul>
+        </nav>
+        <div class="project-container">
+            <div class="project-header">
+                <h2 class="task-project-title">Default Project</h1>
+                <button type="button" class="new-task-btn btn">New Task</button>
+            </div>
+            <div class="task-list-container">
+                <div class="task-container">
+                    <input type="checkbox" name="complete" id="task1">
+                    <label for="task1"></label>
+                    <p class="task-title">Task 1 do something here</p>
+                </div>
+                <hr>
+                <div class="task-container">
+                    <input type="checkbox" name="complete" id="task1">
+                    <label for="task1"></label>
+                    <p class="task-title">Task 1 do something here</p>
+                </div>
+                <hr>
+                <div class="task-container">
+                    <input type="checkbox" name="complete" id="task1">
+                    <label for="task1"></label>
+                    <p class="task-title">Task 1 do something here</p>
+                </div>
+                <hr>
+                <div class="task-container">
+                    <input type="checkbox" name="complete" id="task1">
+                    <label for="task1"></label>
+                    <p class="task-title">Task 1 do something here</p>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
