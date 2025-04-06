@@ -51,5 +51,39 @@
             </div>
         </div>
     </div>
+    <dialog class="modal new-task-modal">
+        <form class="new-task-form" action="">
+            <p class="form-header">New Task</p>
+            <button type="button">✖</button>
+            <div class="form-item new-title-container">
+                <label for="new-title">Title</label>
+                <input id="new-title" type="text" name="new-title">
+            </div>
+            <div class="form-item new-description-container">
+                <label for="new-description">Description</label>
+                <textarea name="new-description" id="new-description"></textarea>
+            </div>
+            <div class="form-item new-due-date-container">
+                <label for="new-due-date">Due Date</label>
+                <input type="date" name="new-due-date" id="new-due-date">
+                <label for="new-time">Time</label>
+                <input type="time" name="new-time" id="new-time">
+            </div>
+            <fieldset class="form-item new-priority">
+                <legend>Priority</legend>
+                <input type="radio" name="new-priority-1" id="new-priority-1">
+                <label for="new-priority-1">Critical (1)</label>
+                <input type="radio" name="new-priority-2" id="new-priority-2">
+                <label for="new-priority-2">High (2)</label>
+                <input type="radio" name="new-priority-3" id="new-priority-3">
+                <label for="new-priority-3">Medium (3)</label>
+                <input type="radio" name="new-priority-4" id="new-priority-4">
+                <label for="new-priority-4">Low (4)</label>
+            </fieldset>
+            <button type="submit">Add Task</button>
+        </form>
+    </dialog>
+    <dialog class="modal edit-task-modal"></dialog>
+    <dialog class="modal new-project-modal"></dialog>
 </body>
 </html>
