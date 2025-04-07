@@ -5,14 +5,16 @@ export class Project {
     }
 
     addTask = (task) => {
-        this[task.uuid] = task;
+        this[taskPrefix + task.uuid] = task;
     }
 
-    removeTask = (task) => {
-        delete this[task.title];
+    removeTaskUUID = (uuid) => {
+        delete this[taskPrefix + uuid];
     }
 
     editProjectName = (newName) => {
         this.name = newName;
     }
 }
+
+const taskPrefix = 'Task: ';
