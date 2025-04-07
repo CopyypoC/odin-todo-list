@@ -44,7 +44,7 @@ document.querySelector('.new-task-modal')
             newTitle.value, newDescription.value, newDueDate.value, 
             newTime.value, Number(newPriority.value)
         );
-        // currentProject.addTask(newTask);
+
         displayNewTask(newTask);
 });
 
@@ -52,8 +52,8 @@ const taskListContainer = document.querySelector('.task-list-container');
 function displayNewTask(newTask) {
     const taskContainer = Object.assign(document.createElement('div'), {
         className: 'task-container',
-        'data-uuid': newTask.uuid,
     });
+    taskContainer.setAttribute('data-uuid', newTask.uuid);
 
     const taskCheckbox = Object.assign(document.createElement('input'), {
         type: 'checkbox',
@@ -84,28 +84,32 @@ function displayNewTask(newTask) {
 
 document.querySelector('.new-project-modal')
     .addEventListener('submit', (e) => {
+        console.log('submitted');
         e.preventDefault();
-        const newProject = createNewProject();
-        projectList.addProject(newProject);
+        const newProjectName = e.target.querySelector('#new-project-name');
+        const newProject = new Project(newProjectName.value);
+
         displayNewProject(newProject);
-})
+});
 
-function createNewProject() {
-    const newProjectName = document.getElementById('#new-project-name');
-    return new Project(newProjectName.value);
-}
 
+const projectListUl = document.querySelector('.project-list'); 
 function displayNewProject(newProject) {
-
+    const projectTitle = Object.assign(document.createElement('li'), {
+        className: 'project-title',
+        textContent: newProject.name,
+    });
+    projectTitle.setAttribute('data-uuid', newProject.uuid);
+    projectListUl.appendChild(projectTitle);
 }
 
-document.querySelector('.project-list')
-    .addEventListener('click', (e) => {
-        if (e.target.className === 'project-title') {
-            // Switch currentproject
-            // 
-        }
-    })
+// document.querySelector('.project-list')
+//     .addEventListener('click', (e) => {
+//         if (e.target.className === 'project-title') {
+//             // Switch currentproject
+//             // 
+//         }
+//     })
 
 
 // 1. JS data

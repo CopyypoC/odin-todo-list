@@ -13,9 +13,6 @@
             <ul class="project-list">
                 <li class="project-title">Default Project with a long name to test</li>
                 <li class="project-title">Default Project</li>
-                <li class="project-title">Default Project</li>
-                <li class="project-title">Default Project</li>
-                <li class="project-title">Default Project</li>
             </ul>
         </nav>
         <div class="project-container">
@@ -25,26 +22,9 @@
             </div>
             <div class="task-list-container">
                 <div class="task-container">
-                    <input type="checkbox" name="complete" id="task1" class="task-checkbox">
-                    <label for="task1"></label>
+                    <input type="checkbox" name="complete" aria-label="task-checkbox" class="task-checkbox">
                     <p class="task-title">Task 1 do something here</p>
                     <p class="task-due-date">04/06/2025 06:30 PM</p>
-                    <p class="task-priority">Critical (1)</p>           
-                </div>
-                <hr>
-                <div class="task-container">
-                    <input type="checkbox" name="complete" id="task1" class="task-checkbox">
-                    <label for="task1"></label>
-                    <p class="task-title">Task 1 do something here</p>
-                    <p class="task-due-date">April 6</p>
-                    <p class="task-priority">Critical (1)</p>           
-                </div>
-                <hr>
-                <div class="task-container">
-                    <input type="checkbox" name="complete" id="task1" class="task-checkbox">
-                    <label for="task1"></label>
-                    <p class="task-title">Task 1 do something here</p>
-                    <p class="task-due-date">4/6/25</p>
                     <p class="task-priority">Critical (1)</p>           
                 </div>
                 <hr>
@@ -113,16 +93,17 @@
                 <label for="edit-priority-4">Low (4)</label>
             </fieldset>
             <button type="submit">Edit Task</button>
+        </form>
     </dialog>
     <dialog class="modal new-project-modal">
         <form class="new-project-form" action="">
             <p class="form-header">New Project</p>
             <button type="button" class="close-modal-btn">✖</button>
-            <div class="new-project-container">
-                <label for="new-project">Name</label>
-                <input type="text" name="new-project" id="new-project">
+            <div class="new-project-name-container">
+                <label for="new-project-name">Name</label>
+                <input type="text" name="new-project-name" id="new-project-name">
             </div>
-            <button type="submit">Add Task</button>
+            <button type="submit">Add Project</button>
         </form>
     </dialog>
 </body>
