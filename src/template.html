@@ -25,27 +25,27 @@
             </div>
             <div class="task-list-container">
                 <div class="task-container">
-                    <input type="checkbox" name="complete" id="task1">
+                    <input type="checkbox" name="complete" id="task1" class="task-checkbox">
                     <label for="task1"></label>
                     <p class="task-title">Task 1 do something here</p>
+                    <p class="task-due-date">04/06/2025 06:30 PM</p>
+                    <p class="task-priority">Critical (1)</p>           
                 </div>
                 <hr>
                 <div class="task-container">
-                    <input type="checkbox" name="complete" id="task1">
+                    <input type="checkbox" name="complete" id="task1" class="task-checkbox">
                     <label for="task1"></label>
                     <p class="task-title">Task 1 do something here</p>
+                    <p class="task-due-date">April 6</p>
+                    <p class="task-priority">Critical (1)</p>           
                 </div>
                 <hr>
                 <div class="task-container">
-                    <input type="checkbox" name="complete" id="task1">
+                    <input type="checkbox" name="complete" id="task1" class="task-checkbox">
                     <label for="task1"></label>
                     <p class="task-title">Task 1 do something here</p>
-                </div>
-                <hr>
-                <div class="task-container">
-                    <input type="checkbox" name="complete" id="task1">
-                    <label for="task1"></label>
-                    <p class="task-title">Task 1 do something here</p>
+                    <p class="task-due-date">4/6/25</p>
+                    <p class="task-priority">Critical (1)</p>           
                 </div>
                 <hr>
             </div>
@@ -71,19 +71,28 @@
             </div>
             <fieldset class="form-item new-priority">
                 <legend>Priority</legend>
-                <input type="radio" name="new-priority-1" id="new-priority-1">
+                <input type="radio" name="new-priority" id="new-priority-1" value="1">
                 <label for="new-priority-1">Critical (1)</label>
-                <input type="radio" name="new-priority-2" id="new-priority-2">
+                <input type="radio" name="new-priority" id="new-priority-2" value="2">
                 <label for="new-priority-2">High (2)</label>
-                <input type="radio" name="new-priority-3" id="new-priority-3">
+                <input type="radio" name="new-priority" id="new-priority-3" value="3">
                 <label for="new-priority-3">Medium (3)</label>
-                <input type="radio" name="new-priority-4" id="new-priority-4">
+                <input type="radio" name="new-priority" id="new-priority-4" value="4">
                 <label for="new-priority-4">Low (4)</label>
             </fieldset>
             <button type="submit">Add Task</button>
         </form>
     </dialog>
-    <dialog class="modal edit-task-modal"></dialog>
-    <dialog class="modal new-project-modal"></dialog>
+    <dialog class="modal edit-task-modal">
+        <button type="button" class="close-modal-btn">✖</button>
+    </dialog>
+    <dialog class="modal new-project-modal">
+        <form class="new-project-form" action="">
+            <p class="form-header">New Project</p>
+            <button type="button" class="close-modal-btn">✖</button>
+            <label for="new-project">Name</label>
+            <input type="text" name="new-project" id="new-project">
+        </form>
+    </dialog>
 </body>
 </html>

@@ -78,6 +78,7 @@ button {
     flex-direction: column;
     background-color: var(--project-list-bg-color);
     min-height: 100vh;
+    flex-grow: 1;
     padding: 0 12px;
 }
 
@@ -123,7 +124,28 @@ button {
 }
 
 .task-container {
-    display: flex;
+    display: grid;
+    grid-template:
+        "checkbox title title" 1fr
+        "checkbox due-date priority" 1fr / max-content 1fr 1fr
+}
+
+.task-checkbox {
+    grid-area: checkbox;
+    place-self: center;
+}
+
+.task-title {
+    grid-area: title;
+}
+
+.task-due-date {
+    grid-area: due-date;
+}
+
+.task-priority {
+    grid-area: priority;
+    place-self: end;
 }
 
 .task-project-title {
@@ -140,8 +162,8 @@ input[type="checkbox"] {
     place-content: center;
     appearance: none;
     margin: 0;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.7rem;
+    height: 1.7rem;
     border: 1px solid gray;
     margin-right: 12px;
     border-radius: 4px;
