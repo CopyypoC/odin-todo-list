@@ -1,6 +1,7 @@
 import { Project } from "./project";
 import { Task } from "./task";
 import { projectList } from "./project-list";
+import { format } from "date-fns";
 
 let currentProject = '';
 
@@ -68,7 +69,7 @@ function displayNewTask(newTask) {
 
     const taskDueDate = Object.assign(document.createElement('p'), {
         className: 'task-due-date',
-        textContent: new Date(newTask.dueDate),
+        textContent: format(new Date(newTask.dueDate), 'MM/dd/yy hh:mm bb'),
     });
 
     const taskPriority = Object.assign(document.createElement('p'), {

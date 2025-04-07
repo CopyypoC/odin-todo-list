@@ -46,7 +46,16 @@ function validatePriority(priority) {
     if (priority < 1 || priority > 4) {
         throw new Error('Priority not in range of 1-4');
     }
-    return priority;
+    switch (priority) {
+        case 1:
+            return 'Critical (1)';
+        case 2:
+            return 'High (2)';
+        case 3:
+            return 'Medium(3)';
+        case 4:
+            return 'Low (1)';
+    }
 }
 
 // Date() format YYYY-MM-DDTHH:mm, T is literally 'T' in the format for 'time'
