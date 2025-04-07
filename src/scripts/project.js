@@ -1,10 +1,11 @@
 export class Project {
     constructor(name) {
         this.name = name;
+        this.uuid = crypto.randomUUID();
     }
 
     addTask = (task) => {
-        this[task.title] = task;
+        this[task.uuid] = task;
     }
 
     removeTask = (task) => {
