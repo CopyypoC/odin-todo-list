@@ -84,14 +84,45 @@
         </form>
     </dialog>
     <dialog class="modal edit-task-modal">
-        <button type="button" class="close-modal-btn">✖</button>
+        <form class="edit-task-form" action="">
+            <p class="form-header">Task Info</p>
+            <button type="button" class="close-modal-btn">✖</button>
+            <div class="form-item edit-title-container">
+                <label for="edit-title">Title</label>
+                <input id="edit-title" type="text" name="edit-title">
+            </div>
+            <div class="form-item edit-description-container">
+                <label for="edit-description">Description</label>
+                <textarea name="edit-description" id="edit-description"></textarea>
+            </div>
+            <div class="form-item edit-due-date-container">
+                <label for="edit-due-date">Due Date</label>
+                <input type="date" name="edit-due-date" id="edit-due-date">
+                <label for="edit-time">Time</label>
+                <input type="time" name="edit-time" id="edit-time">
+            </div>
+            <fieldset class="form-item edit-priority">
+                <legend>Priority</legend>
+                <input type="radio" name="edit-priority" id="edit-priority-1" value="1">
+                <label for="edit-priority-1">Critical (1)</label>
+                <input type="radio" name="edit-priority" id="edit-priority-2" value="2">
+                <label for="edit-priority-2">High (2)</label>
+                <input type="radio" name="edit-priority" id="edit-priority-3" value="3">
+                <label for="edit-priority-3">Medium (3)</label>
+                <input type="radio" name="edit-priority" id="edit-priority-4" value="4">
+                <label for="edit-priority-4">Low (4)</label>
+            </fieldset>
+            <button type="submit">Edit Task</button>
     </dialog>
     <dialog class="modal new-project-modal">
         <form class="new-project-form" action="">
             <p class="form-header">New Project</p>
             <button type="button" class="close-modal-btn">✖</button>
-            <label for="new-project">Name</label>
-            <input type="text" name="new-project" id="new-project">
+            <div class="new-project-container">
+                <label for="new-project">Name</label>
+                <input type="text" name="new-project" id="new-project">
+            </div>
+            <button type="submit">Add Task</button>
         </form>
     </dialog>
 </body>
