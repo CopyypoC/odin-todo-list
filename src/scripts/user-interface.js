@@ -28,6 +28,7 @@ const editTaskModal = document.querySelector('.edit-task-modal');
 //         editTaskModal.showModal();
 // });
 
+// Make new task from modal form submit
 document.querySelector('.new-task-modal')
     .addEventListener('submit', (e) => {
         e.preventDefault();     
@@ -45,6 +46,8 @@ document.querySelector('.new-task-modal')
 
         Project.currentProject.addTask(newTask);
         displayNewTask(newTask);
+        console.log('Current Project Task Added To:');
+        console.log(Project.currentProject);
 });
 
 const taskListContainer = document.querySelector('.task-list-container');
@@ -81,6 +84,7 @@ function displayNewTask(newTask) {
     taskListContainer.appendChild(document.createElement('hr'));
 }
 
+// Make new project from modal form submit
 document.querySelector('.new-project-modal')
     .addEventListener('submit', (e) => {
         e.preventDefault();
@@ -90,8 +94,9 @@ document.querySelector('.new-project-modal')
         Project.currentProject = newProject;
         projectList.addProject(newProject);
         displayNewProjectTitle(newProject);
+        console.log('New Project List:');
+        console.log(projectList);
 });
-
 
 const projectListUl = document.querySelector('.project-list'); 
 function displayNewProjectTitle(newProject) {
@@ -103,36 +108,37 @@ function displayNewProjectTitle(newProject) {
     projectListUl.appendChild(projectTitle);
 }
 
-// Click on project title
-// Get uuid of clicked project title
-// Find matching project.uuid in project list
-
+// Swap between projects
 document.querySelector('.project-list').addEventListener('click', (e) => {
+    switchCurrentProject(e);
+    
+    console.log(`Switched Current Project: ${Project.currentProject.name}`);
+    console.log(Project.currentProject);
+});
+
+function switchCurrentProject(e) {
     if (e.target.className === 'project-title') {
+        // For...of loop gets key, value pairs from entries() which is a
+        // array holding arrays of key value pairs. For...in loop iterates
+        // the indices instead of the key value pairs.
         for (const [key, value] of Object.entries(projectList)) {
             if (key.includes(e.target.dataset.uuid)) {
                 Project.currentProject = value;
             }
         }
-        console.log(Project.currentProject);
     }
-});
+}
+
+function displayProject() {
+
+}
 
 // Create default project
 (function() {
-    const defaultProject = new Project('Default Project');
-    Project.currentProject = defaultProject;
-    projectList.addProject(defaultProject);
-    console.log(typeof Project.currentProject);
-    displayNewProjectTitle(defaultProject);
+    if (localStorage.getItem('projectList') === null) {
+        const defaultProject = new Project('Default Project');
+        Project.currentProject = defaultProject;
+        projectList.addProject(defaultProject);
+        displayNewProjectTitle(defaultProject);
+    }
 }());
-
-// 1. JS data
-// 2. Event listener to get input
-// 3. Update JS data
-// 4. Render to DOM
-
-
-// Project List switch project
-// Click on task
-// Checkbox complete for task

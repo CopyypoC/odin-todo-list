@@ -1,10 +1,29 @@
-export const projectList = {
-    addProject(project) {
-        this[projectPrefix + project.uuid] = project;
-    },
-    removeProjectUUID(uuid) {
-        delete this[projectPrefix + uuid];
-    },
+const projectPrefix = 'Project: ';
+
+class ProjectList {
+    constructor() {
+        this.projects = {};
+    }
+
+    addProject = (project) => {
+        this.projects[projectPrefix + project.uuid] = project;
+        this.saveToStorage();
+    }
+    removeProjectUUID = (uuid) => {
+        delete this.projects[projectPrefix + uuid];
+        this.saveToStorage();
+    }
+
+    loadFromStorage() {
+        const projectList = JSON.parse
+            (localStorage.getItem('projectList')) || {};      
+        this.projects = projectList.projects;
+    }
+
+    saveToStorage() {
+        localStorage.setItem('projectList', JSON.stringify(this));
+    }
 }
 
-const projectPrefix = 'Project: ';
+export let projectList = new ProjectList();
+projectList.loadFromStorage();
