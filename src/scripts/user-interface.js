@@ -3,8 +3,6 @@ import { Task } from "./task";
 import { projectList } from "./project-list";
 import { format } from "date-fns";
 
-let currentProject = '';
-
 const closeModalBtns = document.querySelectorAll('.close-modal-btn');
 closeModalBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -25,10 +23,10 @@ document.querySelector('.new-project-btn')
 });
 
 const editTaskModal = document.querySelector('.edit-task-modal');
-document.querySelector('.task-title')
-    .addEventListener('click', () => {
-        editTaskModal.showModal();
-});
+// document.querySelector('.task-title')
+//     .addEventListener('click', () => {
+//         editTaskModal.showModal();
+// });
 
 document.querySelector('.new-task-modal')
     .addEventListener('submit', (e) => {
@@ -45,6 +43,7 @@ document.querySelector('.new-task-modal')
             newTime.value, Number(newPriority.value)
         );
 
+        Project.currentProject.addTask(newTask);
         displayNewTask(newTask);
 });
 
@@ -84,17 +83,18 @@ function displayNewTask(newTask) {
 
 document.querySelector('.new-project-modal')
     .addEventListener('submit', (e) => {
-        console.log('submitted');
         e.preventDefault();
         const newProjectName = e.target.querySelector('#new-project-name');
         const newProject = new Project(newProjectName.value);
 
-        displayNewProject(newProject);
+        Project.currentProject = newProject;
+        projectList.addProject(newProject);
+        displayNewProjectTitle(newProject);
 });
 
 
 const projectListUl = document.querySelector('.project-list'); 
-function displayNewProject(newProject) {
+function displayNewProjectTitle(newProject) {
     const projectTitle = Object.assign(document.createElement('li'), {
         className: 'project-title',
         textContent: newProject.name,
@@ -103,14 +103,29 @@ function displayNewProject(newProject) {
     projectListUl.appendChild(projectTitle);
 }
 
-// document.querySelector('.project-list')
-//     .addEventListener('click', (e) => {
-//         if (e.target.className === 'project-title') {
-//             // Switch currentproject
-//             // 
-//         }
-//     })
+// Click on project title
+// Get uuid of clicked project title
+// Find matching project.uuid in project list
 
+document.querySelector('.project-list').addEventListener('click', (e) => {
+    if (e.target.className === 'project-title') {
+        for (const [key, value] of Object.entries(projectList)) {
+            if (key.includes(e.target.dataset.uuid)) {
+                Project.currentProject = value;
+            }
+        }
+        console.log(Project.currentProject);
+    }
+});
+
+// Create default project
+(function() {
+    const defaultProject = new Project('Default Project');
+    Project.currentProject = defaultProject;
+    projectList.addProject(defaultProject);
+    console.log(typeof Project.currentProject);
+    displayNewProjectTitle(defaultProject);
+}());
 
 // 1. JS data
 // 2. Event listener to get input
