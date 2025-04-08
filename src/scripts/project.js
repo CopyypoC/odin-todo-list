@@ -4,12 +4,15 @@ export class Project {
         this.uuid = crypto.randomUUID();
     }
 
+    #taskPrefix = 'Task: ';
+    static currentProject = {};
+
     addTask = (task) => {
-        this[taskPrefix + task.uuid] = task;
+        this[this.#taskPrefix + task.uuid] = task;
     }
 
     removeTaskUUID = (uuid) => {
-        delete this[taskPrefix + uuid];
+        delete this[this.#taskPrefix + uuid];
     }
 
     editProjectName = (newName) => {
@@ -17,4 +20,3 @@ export class Project {
     }
 }
 
-const taskPrefix = 'Task: ';
