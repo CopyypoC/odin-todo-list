@@ -16,8 +16,10 @@ class ProjectList {
 
     loadFromStorage() {
         const projectList = JSON.parse
-            (localStorage.getItem('projectList')) || {};      
-        this.projects = projectList.projects;
+            (localStorage.getItem('projectList')) || {};
+        if (projectList.projects) {
+            this.projects = projectList.projects;
+        }
     }
 
     saveToStorage() {
@@ -27,3 +29,4 @@ class ProjectList {
 
 export let projectList = new ProjectList();
 projectList.loadFromStorage();
+console.log(projectList.projects === undefined);
