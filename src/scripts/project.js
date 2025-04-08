@@ -18,5 +18,19 @@ export class Project {
     editProjectName = (newName) => {
         this.name = newName;
     }
+
+    static updateCurrent(project) {
+        this.currentProject = project;
+        this.saveCurrentToStorage()
+    }
+
+    static loadCurrentFromStorage() {
+        this.updateCurrent(JSON.parse(localStorage.getItem('currentProject')));
+    }
+
+    static saveCurrentToStorage() {
+        localStorage.setItem('currentProject', 
+                            JSON.stringify(Project.currentProject));
+    }
 }
 

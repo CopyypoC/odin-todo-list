@@ -23,10 +23,12 @@ document.querySelector('.new-project-btn')
 });
 
 const editTaskModal = document.querySelector('.edit-task-modal');
-// document.querySelector('.task-title')
-//     .addEventListener('click', () => {
-//         editTaskModal.showModal();
-// });
+document.querySelector('.task-list-container')
+    .addEventListener('click', (e) => {
+        if (e.target.className === 'task-title') {
+            editTaskModal.showModal();
+        }
+});
 
 // Make new task from modal form submit
 document.querySelector('.new-task-modal')
@@ -91,7 +93,6 @@ document.querySelector('.new-project-modal')
         const newProjectName = e.target.querySelector('#new-project-name');
         const newProject = new Project(newProjectName.value);
 
-        Project.currentProject = newProject;
         projectList.addProject(newProject);
         displayNewProjectTitle(newProject);
         console.log('New Project List:');
@@ -121,9 +122,9 @@ function switchCurrentProject(e) {
         // For...of loop gets key, value pairs from entries() which is a
         // array holding arrays of key value pairs. For...in loop iterates
         // the indices instead of the key value pairs.
-        for (const [key, value] of Object.entries(projectList.projects)) {
+        for (const [key, project] of Object.entries(projectList.projects)) {
             if (key.includes(e.target.dataset.uuid)) {
-                Project.currentProject = value;
+                Project.updateCurrent(project);
             }
         }
     }
@@ -133,19 +134,20 @@ function displayProject(project) {
     projectListUl.appendChild(project);
 }
 
+let task1 = new Task('Task 1', 'Desc 1', '2025-01-01', '00:11', 1);
 // Page Load Rendering
 (function() {
-    // Default creation on first time loading page
+    // Default creation on empty project list
     if (localStorage.getItem('projectList') === null) {
         const defaultProject = new Project('Default Project');
-        Project.currentProject = defaultProject;
+        Project.updateCurrent(defaultProject);
         projectList.addProject(defaultProject);
         displayNewProjectTitle(defaultProject);
     } else {
-        console.log(Object.values(projectList.projects));
         for (const project of Object.values(projectList.projects)) {
             displayNewProjectTitle(project);
         }
+        Project.loadCurrentFromStorage();
     }
 }());
 
