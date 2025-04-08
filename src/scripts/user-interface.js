@@ -121,7 +121,7 @@ function switchCurrentProject(e) {
         // For...of loop gets key, value pairs from entries() which is a
         // array holding arrays of key value pairs. For...in loop iterates
         // the indices instead of the key value pairs.
-        for (const [key, value] of Object.entries(projectList)) {
+        for (const [key, value] of Object.entries(projectList.projects)) {
             if (key.includes(e.target.dataset.uuid)) {
                 Project.currentProject = value;
             }
@@ -129,16 +129,30 @@ function switchCurrentProject(e) {
     }
 }
 
-function displayProject() {
-
+function displayProject(project) {
+    projectListUl.appendChild(project);
 }
 
-// Create default project
+// Page Load Rendering
 (function() {
+    // Default creation on first time loading page
     if (localStorage.getItem('projectList') === null) {
         const defaultProject = new Project('Default Project');
         Project.currentProject = defaultProject;
         projectList.addProject(defaultProject);
         displayNewProjectTitle(defaultProject);
+    } else {
+        console.log(Object.values(projectList.projects));
+        for (const project of Object.values(projectList.projects)) {
+            displayNewProjectTitle(project);
+        }
     }
 }());
+
+// Display project title function to use on load and every time something
+// is added/removed
+
+// -- Page Load Rendering --
+// IF local storage exists on page load
+// THEN display all projects in the project list
+// Use current project in local storage to display main content
