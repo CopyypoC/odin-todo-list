@@ -29,4 +29,3 @@ class ProjectList {
 
 export let projectList = new ProjectList();
 projectList.loadFromStorage();
-console.log(projectList.projects === undefined);

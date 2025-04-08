@@ -46,7 +46,9 @@ document.querySelector('.new-task-modal')
             newTime.value, Number(newPriority.value)
         );
 
-        Project.currentProject.addTask(newTask);
+        Project.addTask(newTask);
+        console.log(projectList);
+        projectList.saveToStorage();
         displayNewTask(newTask);
         console.log('Current Project Task Added To:');
         console.log(Project.currentProject);
@@ -148,6 +150,8 @@ let task1 = new Task('Task 1', 'Desc 1', '2025-01-01', '00:11', 1);
             displayNewProjectTitle(project);
         }
         Project.loadCurrentFromStorage();
+        // Iterate through projectList.projects
+        // Match uuid and switch like before, check above ^
     }
 }());
 
@@ -158,3 +162,6 @@ let task1 = new Task('Task 1', 'Desc 1', '2025-01-01', '00:11', 1);
 // IF local storage exists on page load
 // THEN display all projects in the project list
 // Use current project in local storage to display main content
+
+// !!!!!!!!!!!!!!! IMPORTANT
+// Use currentproject and point back to the original in project list 
