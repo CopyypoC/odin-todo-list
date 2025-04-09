@@ -27,12 +27,7 @@ export class Project {
     }
 
     static loadCurrentFromStorage() {
-        const projectCopy = JSON.parse(localStorage.getItem('currentProject'));
-        for (const [key, project] of Object.entries(storageProjectList.projects)) {
-            if (key.includes(projectCopy.uuid)) {
-                this.updateCurrent(project);
-            }
-        }
+        return JSON.parse(localStorage.getItem('currentProject'));
     }
 
     static saveCurrentToStorage() {
@@ -40,8 +35,3 @@ export class Project {
                             JSON.stringify(currentProject));
     }
 }
-
-// MAKE EVERYTHING STATIC MAYBE? ALWAYS JUST KEEPING TRACK OF CURRENT
-// ALSO UPDATE PROJECT LIST STORAGE WHENEVER ADDING/REMOVE/EDITING ETC.
-// Loading from storage is just a copy and not a refernce to the original
-// Get original project in projectlist and copy the currentProject into it

@@ -3,6 +3,8 @@ import { Task, splitDate } from "./task";
 import { ProjectList, storageProjectList } from "./project-list";
 import { format } from "date-fns";
 
+let projectList = new ProjectList();
+
 const closeModalBtns = document.querySelectorAll('.close-modal-btn');
 closeModalBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -92,10 +94,10 @@ function displayNewTask(newTask) {
 // Make new project from modal form submit
 document.querySelector('.new-project-modal')
     .addEventListener('submit', (e) => {
-        e.preventDefault();
         const newProjectName = e.target.querySelector('#new-project-name');
         const newProject = new Project(newProjectName.value);
-
+        
+        e.preventDefault();
         projectList.addProject(newProject);
         displayNewProjectTitle(newProject);
         console.log('New Project List:');
@@ -115,7 +117,9 @@ function displayNewProjectTitle(newProject) {
 // Swap between projects
 document.querySelector('.project-list').addEventListener('click', (e) => {
     switchCurrentProject(e);
-    
+    taskListContainer.replaceChildren();
+    displayProject();
+
     console.log(`Switched Current Project: ${currentProject.name}`);
     console.log(currentProject);
 });
@@ -133,31 +137,13 @@ function switchCurrentProject(e) {
     }
 }
 
-function displayProject(project) {
-    projectListUl.appendChild(project);
-}
-
-let projectList = new ProjectList();
-// Page Load Rendering
-(function() {
-    // Default creation on empty project list
-    if (localStorage.getItem('projectList') === null) {
-        const defaultProject = new Project('Default Project');
-        Project.updateCurrent(defaultProject);
-        projectList.addProject(defaultProject);
-        displayNewProjectTitle(defaultProject);
-    } else {
-        deserializeProjectList();
-        console.log('Storage Project List: ');
-        console.log(storageProjectList);
-        console.log('Deserialized Project List: ');
-        console.log(projectList);
-        for (const project of Object.values(projectList.projects)) {
-            displayNewProjectTitle(project);
-        }   
-        // Project.loadCurrentFromStorage();
+function displayProject() {
+    for (const task of Object.values(currentProject)) {
+        if (task instanceof Task) {
+            displayNewTask(task);
+        }
     }
-}());
+}
 
 function deserializeProjectList() {
     for (const storageProj of Object.values(storageProjectList.projects)) {
@@ -181,3 +167,32 @@ function deserializeProjectList() {
         }
     }
 }
+
+// Initial Rendering
+(function() {
+    // Default creation on empty project list
+    if (localStorage.getItem('projectList') === null) {
+        const defaultProject = new Project('Default Project');
+
+        Project.updateCurrent(defaultProject);
+        projectList.addProject(defaultProject);
+        displayNewProjectTitle(defaultProject);
+    } else {
+        let tempProject = Project.loadCurrentFromStorage();
+
+        deserializeProjectList();
+        // Update storage currentProject to instantiated one 
+        for (const [key, project] of Object.entries(projectList.projects)) {
+            if (key.includes(tempProject.uuid)) {
+                Project.updateCurrent(project);
+                tempProject = currentProject;
+            }
+        }
+        Project.updateCurrent(tempProject);
+
+        for (const project of Object.values(projectList.projects)) {
+            displayNewProjectTitle(project);
+        }
+        displayProject();
+    }
+}());
