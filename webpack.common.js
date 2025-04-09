@@ -40,6 +40,11 @@ module.exports = {
             // Loaders transform the code of the module to make 
             // them compatible for bundling with other modules.
             },
+            // Treats images as resource
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: "asset/resource",
+            },
         ],
     },
 };

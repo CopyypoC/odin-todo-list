@@ -126,8 +126,9 @@ button {
 .task-container {
     display: grid;
     grid-template:
-        "checkbox title title" 1fr
-        "checkbox due-date priority" 1fr / max-content 1fr 1fr
+        "checkbox title title title" 1fr
+        "checkbox due-date priority delete-icon" 1fr 
+        / max-content 1fr 1fr 1fr
 }
 
 .task-checkbox {
@@ -143,9 +144,14 @@ button {
     grid-area: due-date;
 }
 
+.task-delete-icon {
+    grid-area: delete-icon;
+    place-self: end;
+}
+
 .task-priority {
     grid-area: priority;
-    place-self: end;
+    place-self: start;
 }
 
 .task-project-title {

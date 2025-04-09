@@ -2,6 +2,7 @@ import { Project, currentProject } from "./project";
 import { Task, splitDate } from "./task";
 import { ProjectList, storageProjectList } from "./project-list";
 import { format } from "date-fns";
+import deleteIcon from "../images/red-trash.svg";
 
 let projectList = new ProjectList();
 
@@ -81,13 +82,20 @@ function displayNewTask(newTask) {
         textContent: format(new Date(newTask.dueDate), 'MM/dd/yy hh:mm bb'),
     });
 
+    const deleteImg = Object.assign(document.createElement('img'), {
+        src: deleteIcon,
+        alt: 'Delete icon',
+        className: 'task-delete-icon',
+    })
+
     const taskPriority = Object.assign(document.createElement('p'), {
         className: 'task-priority',
         textContent: newTask.priority,
     })
 
     taskListContainer.appendChild(taskContainer);
-    taskContainer.append(taskCheckbox, taskTitle, taskDueDate, taskPriority);
+    taskContainer.append(taskCheckbox, taskTitle, taskDueDate, 
+                        deleteImg, taskPriority);
     taskListContainer.appendChild(document.createElement('hr'));
 }
 
