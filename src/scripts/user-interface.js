@@ -1,6 +1,6 @@
-import { Project } from "./project";
-import { Task } from "./task";
-import { projectList } from "./project-list";
+import { Project, currentProject } from "./project";
+import { Task, splitDate } from "./task";
+import { ProjectList, storageProjectList } from "./project-list";
 import { format } from "date-fns";
 
 const closeModalBtns = document.querySelectorAll('.close-modal-btn');
@@ -46,12 +46,13 @@ document.querySelector('.new-task-modal')
             newTime.value, Number(newPriority.value)
         );
 
-        Project.addTask(newTask);
-        console.log(projectList);
+        currentProject.addTask(newTask);
         projectList.saveToStorage();
+        console.log('Project list after add new task: ');
+        console.log(projectList);
         displayNewTask(newTask);
         console.log('Current Project Task Added To:');
-        console.log(Project.currentProject);
+        console.log(currentProject);
 });
 
 const taskListContainer = document.querySelector('.task-list-container');
@@ -115,8 +116,8 @@ function displayNewProjectTitle(newProject) {
 document.querySelector('.project-list').addEventListener('click', (e) => {
     switchCurrentProject(e);
     
-    console.log(`Switched Current Project: ${Project.currentProject.name}`);
-    console.log(Project.currentProject);
+    console.log(`Switched Current Project: ${currentProject.name}`);
+    console.log(currentProject);
 });
 
 function switchCurrentProject(e) {
@@ -136,7 +137,7 @@ function displayProject(project) {
     projectListUl.appendChild(project);
 }
 
-let task1 = new Task('Task 1', 'Desc 1', '2025-01-01', '00:11', 1);
+let projectList = new ProjectList();
 // Page Load Rendering
 (function() {
     // Default creation on empty project list
@@ -146,22 +147,37 @@ let task1 = new Task('Task 1', 'Desc 1', '2025-01-01', '00:11', 1);
         projectList.addProject(defaultProject);
         displayNewProjectTitle(defaultProject);
     } else {
+        deserializeProjectList();
+        console.log('Storage Project List: ');
+        console.log(storageProjectList);
+        console.log('Deserialized Project List: ');
+        console.log(projectList);
         for (const project of Object.values(projectList.projects)) {
             displayNewProjectTitle(project);
-        }
-        Project.loadCurrentFromStorage();
-        // Iterate through projectList.projects
-        // Match uuid and switch like before, check above ^
+        }   
+        // Project.loadCurrentFromStorage();
     }
 }());
 
-// Display project title function to use on load and every time something
-// is added/removed
-
-// -- Page Load Rendering --
-// IF local storage exists on page load
-// THEN display all projects in the project list
-// Use current project in local storage to display main content
-
-// !!!!!!!!!!!!!!! IMPORTANT
-// Use currentproject and point back to the original in project list 
+function deserializeProjectList() {
+    for (const storageProj of Object.values(storageProjectList.projects)) {
+        // Instantiate project and attach to projectlist.projects
+        const project = new Project(storageProj.name, storageProj.uuid)
+        Project.updateCurrent(project);
+        projectList.addProject(project);
+        
+        for (const [key, storageTask] of Object.entries(storageProj)) {
+            // Instantiate task and attach to project
+            if (key.includes('Task: ')) {
+                const dueDate = storageTask.dueDate.split('T');
+                const indexOfNum = storageTask.priority.search(/[1-4]/);
+                const priority = Number(storageTask.priority[indexOfNum]);
+                const task = new Task(
+                    storageTask.title, storageTask.description, dueDate[0],
+                    dueDate[1], priority, undefined, storageTask.uuid
+                );
+                currentProject.addTask(task);
+            }
+        }
+    }
+}

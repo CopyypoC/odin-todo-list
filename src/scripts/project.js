@@ -1,35 +1,34 @@
-import { projectList } from "./project-list";
+import { storageProjectList } from "./project-list";
 
 const taskPrefix = 'Task: ';
+export let currentProject = {};
 
 export class Project {
-    constructor(name) {
+    constructor(name, uuid = crypto.randomUUID()) {
         this.name = name;
-        this.uuid = crypto.randomUUID();
+        this.uuid = uuid;
     }
 
-    static currentProject = {};
-
-    static addTask = (task) => {
-        this.currentProject[taskPrefix + task.uuid] = task;
+    addTask = (task) => {
+        this[taskPrefix + task.uuid] = task;
     }
  
-    static removeTaskUUID = (uuid) => {
-        delete this.currentProject[taskPrefix + uuid];
+    removeTaskUUID = (uuid) => {
+        delete this[taskPrefix + uuid];
     }
 
-    static editProjectName = (newName) => {
-        this.currentProject.name = newName;
+    editProjectName = (newName) => {
+        this.name = newName;
     }
 
     static updateCurrent(project) {
-        this.currentProject = project;
+        currentProject = project;
         this.saveCurrentToStorage()
     }
 
     static loadCurrentFromStorage() {
         const projectCopy = JSON.parse(localStorage.getItem('currentProject'));
-        for (const [key, project] of Object.entries(projectList.projects)) {
+        for (const [key, project] of Object.entries(storageProjectList.projects)) {
             if (key.includes(projectCopy.uuid)) {
                 this.updateCurrent(project);
             }
@@ -38,7 +37,7 @@ export class Project {
 
     static saveCurrentToStorage() {
         localStorage.setItem('currentProject', 
-                            JSON.stringify(this.currentProject));
+                            JSON.stringify(currentProject));
     }
 }
 

@@ -1,13 +1,16 @@
 const projectPrefix = 'Project: ';
 
-class ProjectList {
+export class ProjectList {
     constructor() {
         this.projects = {};
     }
 
     addProject = (project) => {
         this.projects[projectPrefix + project.uuid] = project;
-        this.saveToStorage();
+        if (!(`${projectPrefix}${project.uuid}` in 
+                storageProjectList.projects)) {
+            this.saveToStorage();
+        }
     }
     removeProjectUUID = (uuid) => {
         delete this.projects[projectPrefix + uuid];
@@ -27,5 +30,5 @@ class ProjectList {
     }
 }
 
-export let projectList = new ProjectList();
-projectList.loadFromStorage();
+export let storageProjectList = new ProjectList();
+storageProjectList.loadFromStorage();

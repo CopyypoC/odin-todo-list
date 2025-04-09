@@ -1,11 +1,12 @@
 export class Task {
-    constructor(title, description, date, time, priority, isCompleted = false) {
+    constructor(title, description, date, time, priority, 
+                isCompleted = false, uuid = crypto.randomUUID()) {
         this.title = validateText(title);
         this.description = validateText(description);
         this.dueDate = validateDate(date, time);
         this.priority = validatePriority(priority);
         this.isCompleted = isCompleted;
-        this.uuid = crypto.randomUUID();
+        this.uuid = uuid;
     }
 
     editTitle = (newTitle) => {
