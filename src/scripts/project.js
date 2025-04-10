@@ -1,5 +1,3 @@
-import { storageProjectList } from "./project-list";
-
 const taskPrefix = 'Task: ';
 export let currentProject = {};
 

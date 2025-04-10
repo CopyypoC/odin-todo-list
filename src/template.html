@@ -26,7 +26,7 @@
             <button type="button" class="close-modal-btn">✖</button>
             <div class="form-item new-title-container">
                 <label for="new-title">Title</label>
-                <input id="new-title" type="text" name="new-title">
+                <input id="new-title" type="text" name="new-title" required>
             </div>
             <div class="form-item new-description-container">
                 <label for="new-description">Description</label>
@@ -34,13 +34,14 @@
             </div>
             <div class="form-item new-due-date-container">
                 <label for="new-due-date">Due Date</label>
-                <input type="date" name="new-due-date" id="new-due-date">
+                <input type="date" name="new-due-date" id="new-due-date" required>
                 <label for="new-time">Time</label>
-                <input type="time" name="new-time" id="new-time">
+                <input type="time" name="new-time" id="new-time" 
+                        required value="23:59">
             </div>
             <fieldset class="form-item new-priority">
                 <legend>Priority</legend>
-                <input type="radio" name="new-priority" id="new-priority-1" value="1" checked>
+                <input type="radio" name="new-priority" id="new-priority-1" value="1" checked required>
                 <label for="new-priority-1">Critical (1)</label>
                 <input type="radio" name="new-priority" id="new-priority-2" value="2">
                 <label for="new-priority-2">High (2)</label>
@@ -58,7 +59,7 @@
             <button type="button" class="close-modal-btn">✖</button>
             <div class="form-item edit-title-container">
                 <label for="edit-title">Title</label>
-                <input id="edit-title" type="text" name="edit-title">
+                <input id="edit-title" type="text" name="edit-title" required>
             </div>
             <div class="form-item edit-description-container">
                 <label for="edit-description">Description</label>
@@ -66,13 +67,14 @@
             </div>
             <div class="form-item edit-due-date-container">
                 <label for="edit-due-date">Due Date</label>
-                <input type="date" name="edit-due-date" id="edit-due-date">
+                <input type="date" name="edit-due-date" id="edit-due-date" required>
                 <label for="edit-time">Time</label>
-                <input type="time" name="edit-time" id="edit-time">
+                <input type="time" name="edit-time" id="edit-time" 
+                        required value="23:59" >
             </div>
             <fieldset class="form-item edit-priority">
                 <legend>Priority</legend>
-                <input type="radio" name="edit-priority" id="edit-priority-1" value="1">
+                <input type="radio" name="edit-priority" id="edit-priority-1" value="1" required>
                 <label for="edit-priority-1">Critical (1)</label>
                 <input type="radio" name="edit-priority" id="edit-priority-2" value="2">
                 <label for="edit-priority-2">High (2)</label>
@@ -90,7 +92,7 @@
             <button type="button" class="close-modal-btn">✖</button>
             <div class="new-project-name-container">
                 <label for="new-project-name">Name</label>
-                <input type="text" name="new-project-name" id="new-project-name">
+                <input type="text" name="new-project-name" id="new-project-name" required>
             </div>
             <button type="submit">Add Project</button>
         </form>

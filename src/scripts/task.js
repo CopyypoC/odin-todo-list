@@ -1,8 +1,8 @@
 export class Task {
     constructor(title, description, date, time, priority, 
                 isCompleted = false, uuid = crypto.randomUUID()) {
-        this.title = validateText(title);
-        this.description = validateText(description);
+        this.title = validateTitle(title);
+        this.description = validateDescription(description);
         this.dueDate = validateDate(date, time);
         this.priority = validatePriority(priority);
         this.isCompleted = isCompleted;
@@ -10,14 +10,21 @@ export class Task {
     }
 }
 
-function validateText(text) {
-    if (typeof text !== 'string') {
+function validateTitle(title) {
+    if (typeof title !== 'string') {
         throw new Error('Task title is not a string');
     }
-    if (!text) {
+    if (!title) {
         throw new Error('Task title is empty');
     }
-    return text;
+    return title;
+}
+
+function validateDescription(desc) {
+    if (typeof desc !== 'string') {
+        throw new Error('Task title is not a string');
+    }
+    return desc;
 }
 
 export function validatePriority(priority) {
@@ -33,7 +40,7 @@ export function validatePriority(priority) {
         case 2:
             return 'High (2)';
         case 3:
-            return 'Medium(3)';
+            return 'Medium (3)';
         case 4:
             return 'Low (4)';
     }
