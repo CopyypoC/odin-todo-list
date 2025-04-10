@@ -64,6 +64,11 @@ button {
     min-width: max-content;
 }
 
+button:hover {
+    cursor: pointer;
+    filter: brightness(1.1) saturate(1.1);
+}
+
 .modal {
     border: 0;
     padding: 0;
@@ -101,6 +106,15 @@ button {
     gap: 12px;
     list-style-type: disc;
     padding-inline-start: 30px;
+}
+
+.project-title {
+    padding: 4px;
+}
+
+.project-title:hover {
+    cursor: pointer;
+    background-color: #593651;
 }
 
 /* Project */
@@ -168,6 +182,11 @@ input[type="checkbox"]:hover {
     grid-area: title;
 }
 
+.task-title:hover {
+    cursor: pointer;
+    background-color: #734569;;
+}
+
 .task-due-date {
     grid-area: due-date;
 }
@@ -175,6 +194,12 @@ input[type="checkbox"]:hover {
 .task-delete-icon {
     grid-area: delete-icon;
     place-self: end;
+    height: 28px;
+}
+
+.task-delete-icon:hover {
+    cursor: pointer;
+    filter: brightness(1.4) saturate(1.4);
 }
 
 .task-priority {
