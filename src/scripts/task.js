@@ -20,7 +20,7 @@ function validateText(text) {
     return text;
 }
 
-function validatePriority(priority) {
+export function validatePriority(priority) {
     if (typeof priority !== 'number') {
         throw new Error('Priority is not a number');
     }
@@ -35,7 +35,7 @@ function validatePriority(priority) {
         case 3:
             return 'Medium(3)';
         case 4:
-            return 'Low (1)';
+            return 'Low (4)';
     }
 }
 
@@ -52,6 +52,6 @@ function validateDate(date, time) {
 
 // date comes in format YYYY-MM-DD from <input type='date'>
 // time comes in format HH:mm from <input type='time>
-function formatDate(date, time) {
+export function formatDate(date, time) {
     return date + 'T' + time;
 }

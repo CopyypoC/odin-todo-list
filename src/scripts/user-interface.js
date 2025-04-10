@@ -1,10 +1,11 @@
 import { Project, currentProject } from "./project";
-import { Task, splitDate } from "./task";
+import { Task, formatDate, validatePriority } from "./task";
 import { ProjectList, storageProjectList } from "./project-list";
 import { format } from "date-fns";
 import deleteIcon from "../images/red-trash.svg";
 
 let projectList = new ProjectList();
+let currentTask = {};
 
 const closeModalBtns = document.querySelectorAll('.close-modal-btn');
 closeModalBtns.forEach(btn => {
@@ -28,26 +29,23 @@ document.querySelector('.new-project-btn')
 // Make new task from modal form submit
 document.querySelector('.new-task-modal')
     .addEventListener('submit', (e) => {
-        e.preventDefault();     
+        e.preventDefault();
+        const description = document.getElementById('edit-description');
         const newTitle = e.target.querySelector('#new-title');
         const newDescription = e.target.querySelector('#new-description');
-        const newDueDate = e.target.querySelector('#new-due-date');
+        const newDate = e.target.querySelector('#new-due-date');
         const newTime = e.target.querySelector('#new-time');
         const newPriority = e.target.querySelector(
             'input[name="new-priority"]:checked');
-        
         const newTask = new Task(
-            newTitle.value, newDescription.value, newDueDate.value, 
+            newTitle.value, newDescription.value, newDate.value, 
             newTime.value, Number(newPriority.value)
         );
 
+        description.value = newTask.description;
         currentProject.addTask(newTask);
         projectList.saveToStorage();
-        console.log('Project list after add new task: ');
-        console.log(projectList);
         displayNewTask(newTask);
-        console.log('Current Project Task Added To:');
-        console.log(currentProject);
 });
 
 const taskListContainer = document.querySelector('.task-list-container');
@@ -108,6 +106,10 @@ taskListContainer.addEventListener('click', (e) => {
     }
     // Edit Task
     if (e.target.className === 'task-title') {
+        const uuid = e.target.closest('div[data-uuid]').dataset.uuid;
+        currentTask = currentProject.getTaskFromUUID(uuid);
+        // Fill form with values before display
+        fillFormValues();
         editTaskModal.showModal();
     }
 })
@@ -122,7 +124,6 @@ function deleteTaskDOM(e) {
 }
 
 function applyCompletionStyle(e) {
-    // toggle task complete
     const taskCheckbox = e.target;
     const taskItem = e.target.closest('div[class="task-item"');
     const uuid = e.target.closest('div[data-uuid]').dataset.uuid;
@@ -161,6 +162,65 @@ function resetMarginTop(completedTasks) {
 
     for (const child of taskListContainer.children) {
         child.style.marginTop = '';
+    }
+}
+
+function fillFormValues() {
+    const dateSplit = currentTask.dueDate.split('T');
+    const indexOfNum = currentTask.priority.search(/[1-4]/);
+    const priority = Number(currentTask.priority[indexOfNum]);
+    const checkbox = document.querySelector(`#edit-priority-${priority}`);
+
+    editTitle.value = currentTask.title;
+    editDescription.value = currentTask.description;
+    editDate.value = dateSplit[0];
+    editTime.value = dateSplit[1];
+    checkbox.checked = true;
+}
+
+document.querySelector('.edit-task-modal')
+    .addEventListener('submit', (e) => {
+        e.preventDefault();
+        editCurrentTask(e);
+        editCurrentTaskDOM();
+});
+
+const editTitle = document.querySelector('#edit-title');
+const editDescription = document.querySelector('#edit-description');
+const editDate = document.querySelector('#edit-due-date');
+const editTime = document.querySelector('#edit-time');
+
+function editCurrentTask(e) {
+    const tempDate = editDate.value;
+    const tempTime = editTime.value;
+    const editPriority = e.target.querySelector(
+        'input[name="edit-priority"]:checked');
+
+    currentTask.title = editTitle.value;
+    currentTask.description = editDescription.value;
+    currentTask.dueDate = formatDate(editDate.value, editTime.value);
+    currentTask.priority = validatePriority(Number(editPriority.value));
+
+    editTitle.value = currentTask.title;
+    editDescription.value = currentTask.description;
+    editDate.value = tempDate;
+    editTime.value = tempTime;
+    editPriority.checked = true;
+    
+    projectList.saveToStorage();
+}
+
+function editCurrentTaskDOM() {
+    for (const child of taskListContainer.children) {
+        if (child.firstElementChild.dataset.uuid === currentTask.uuid) {
+            const title = child.querySelector('.task-title');
+            const dueDate = child.querySelector('.task-due-date');
+            const priority = child.querySelector('.task-priority');
+
+            title.textContent = currentTask.title;
+            dueDate.textContent = format(new Date(currentTask.dueDate), 'MM/dd/yy hh:mm bb');
+            priority.textContent = currentTask.priority;
+        }
     }
 }
 
