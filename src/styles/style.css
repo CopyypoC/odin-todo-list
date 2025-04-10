@@ -123,6 +123,10 @@ button {
     margin-top: 16px;
 }
 
+hr {
+    margin-top: 12px;
+}
+
 .task-container {
     display: grid;
     grid-template:
@@ -136,7 +140,31 @@ button {
     place-self: center;
 }
 
+input[type="checkbox"] {
+    display: grid;
+    place-content: center;
+    appearance: none;
+    margin: 0;
+    width: 1.7rem;
+    height: 1.7rem;
+    border: 2px solid white;
+    margin-right: 12px;
+    border-radius: 6px;
+    background-color: white;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #F726F0;
+}
+
+input[type="checkbox"]:hover {
+    background-color: #FCB0FA;
+    cursor: pointer;
+}
+
 .task-title {
+    font-size: 1.2rem;
+    font-weight: 500;
     grid-area: title;
 }
 
@@ -161,17 +189,4 @@ button {
 .new-task-btn {
     padding: 14px 1.5rem;
     font-size: 1.1rem;
-}
-
-input[type="checkbox"] {
-    display: grid;
-    place-content: center;
-    appearance: none;
-    margin: 0;
-    width: 1.7rem;
-    height: 1.7rem;
-    border: 1px solid gray;
-    margin-right: 12px;
-    border-radius: 4px;
-    background-color: white;
 }

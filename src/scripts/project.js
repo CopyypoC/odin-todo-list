@@ -12,6 +12,10 @@ export class Project {
     addTask = (task) => {
         this[taskPrefix + task.uuid] = task;
     }
+
+    getTaskFromUUID(uuid) {
+        return this[taskPrefix + uuid];
+    }
  
     removeTaskUUID = (uuid) => {
         delete this[taskPrefix + uuid];

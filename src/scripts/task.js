@@ -8,26 +8,6 @@ export class Task {
         this.isCompleted = isCompleted;
         this.uuid = uuid;
     }
-
-    editTitle = (newTitle) => {
-        this.title = newTitle;
-    }
-
-    editDescription = (newDescription) => {
-        this.description = newDescription;
-    }
-
-    editDueDate = (newDueDate) => {
-        this.dueDate = newDueDate;
-    }
-
-    editPriority = (newPriority) => {
-        this.priority = newPriority;
-    }
-
-    editIsCompleted = (newIsCompleted) => {
-        this.isCompleted = newIsCompleted;
-    }
 }
 
 function validateText(text) {

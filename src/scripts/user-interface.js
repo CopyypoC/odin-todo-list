@@ -25,14 +25,6 @@ document.querySelector('.new-project-btn')
         newProjectModal.showModal();
 });
 
-const editTaskModal = document.querySelector('.edit-task-modal');
-document.querySelector('.task-list-container')
-    .addEventListener('click', (e) => {
-        if (e.target.className === 'task-title') {
-            editTaskModal.showModal();
-        }
-});
-
 // Make new task from modal form submit
 document.querySelector('.new-task-modal')
     .addEventListener('submit', (e) => {
@@ -60,6 +52,10 @@ document.querySelector('.new-task-modal')
 
 const taskListContainer = document.querySelector('.task-list-container');
 function displayNewTask(newTask) {
+    const taskItem = Object.assign(document.createElement('div'), {
+        className: 'task-item'
+    });
+
     const taskContainer = Object.assign(document.createElement('div'), {
         className: 'task-container',
     });
@@ -93,10 +89,79 @@ function displayNewTask(newTask) {
         textContent: newTask.priority,
     })
 
-    taskListContainer.appendChild(taskContainer);
+    taskListContainer.appendChild(taskItem);
+    taskItem.appendChild(taskContainer);
     taskContainer.append(taskCheckbox, taskTitle, taskDueDate, 
                         deleteImg, taskPriority);
-    taskListContainer.appendChild(document.createElement('hr'));
+    taskItem.appendChild(document.createElement('hr'));
+}
+
+const editTaskModal = document.querySelector('.edit-task-modal');
+taskListContainer.addEventListener('click', (e) => {
+    // Delete
+    if (e.target.className === 'task-delete-icon') {
+        deleteTaskDOM(e);
+    }
+    // Checkbox
+    if (e.target.classList.contains('task-checkbox')) {
+        applyCompletionStyle(e);
+    }
+    // Edit Task
+    if (e.target.className === 'task-title') {
+        editTaskModal.showModal();
+    }
+})
+
+function deleteTaskDOM(e) {
+    const uuid = e.target.closest('div[data-uuid]').dataset.uuid;
+
+    currentProject.removeTaskUUID(uuid);
+    projectList.saveToStorage();
+    taskListContainer.replaceChildren();
+    displayProject();
+}
+
+function applyCompletionStyle(e) {
+    // toggle task complete
+    const taskCheckbox = e.target;
+    const taskItem = e.target.closest('div[class="task-item"');
+    const uuid = e.target.closest('div[data-uuid]').dataset.uuid;
+    const task = currentProject.getTaskFromUUID(uuid);
+    const taskTitle = e.target.nextElementSibling;
+    const marginTop = taskItem.offsetHeight + 'px';
+    let completedTasks = []
+
+    task.isCompleted = !task.isCompleted;
+    if (task.isCompleted === true) {
+        taskCheckbox.checked = true;
+        taskTitle.style.textDecoration = 'line-through';
+        taskItem.style.order = '1';
+        resetMarginTop(completedTasks);
+        completedTasks[0].style.marginTop = marginTop;
+    }
+
+    if (task.isCompleted === false) {
+        taskCheckbox.checked = false;
+        taskItem.style.order = '0';
+        resetMarginTop(completedTasks);
+        if (completedTasks.length) {
+            completedTasks[0].style.marginTop = marginTop;
+        }
+
+        taskTitle.style.textDecoration = '';
+    }
+}
+
+function resetMarginTop(completedTasks) {
+    for (const child of taskListContainer.children) {
+        if (child.style.order === '1') {
+            completedTasks.push(child);
+        }
+    }
+
+    for (const child of taskListContainer.children) {
+        child.style.marginTop = '';
+    }
 }
 
 // Make new project from modal form submit
@@ -146,6 +211,9 @@ function switchCurrentProject(e) {
 }
 
 function displayProject() {
+    const taskProjectTitle = document.querySelector('.task-project-title');
+    taskProjectTitle.textContent = currentProject.name;
+
     for (const task of Object.values(currentProject)) {
         if (task instanceof Task) {
             displayNewTask(task);
