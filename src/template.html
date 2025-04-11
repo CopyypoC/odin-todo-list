@@ -23,7 +23,7 @@
     <dialog class="modal new-task-modal">
         <form class="new-task-form" action="">
             <p class="form-header">New Task</p>
-            <button type="button" class="close-modal-btn">✖</button>
+            <button type="button" class="close-modal-btn">✖&#xfe0e;</button>
             <div class="form-item new-title-container">
                 <label for="new-title">Title</label>
                 <input id="new-title" type="text" name="new-title" required>
@@ -42,21 +42,21 @@
             <fieldset class="form-item new-priority">
                 <legend>Priority</legend>
                 <input type="radio" name="new-priority" id="new-priority-1" value="1" checked required>
-                <label for="new-priority-1">Critical (1)</label>
+                <label class="priority-label" for="new-priority-1">Critical (1)</label>
                 <input type="radio" name="new-priority" id="new-priority-2" value="2">
-                <label for="new-priority-2">High (2)</label>
+                <label class="priority-label" for="new-priority-2">High (2)</label>
                 <input type="radio" name="new-priority" id="new-priority-3" value="3">
-                <label for="new-priority-3">Medium (3)</label>
+                <label class="priority-label" for="new-priority-3">Medium (3)</label>
                 <input type="radio" name="new-priority" id="new-priority-4" value="4">
-                <label for="new-priority-4">Low (4)</label>
+                <label class="priority-label" for="new-priority-4">Low (4)</label>
             </fieldset>
-            <button type="submit">Add Task</button>
+            <button type="submit" class="task-submit">Add Task</button>
         </form>
     </dialog>
     <dialog class="modal edit-task-modal">
         <form class="edit-task-form" action="">
             <p class="form-header">Task Info</p>
-            <button type="button" class="close-modal-btn">✖</button>
+            <button type="button" class="close-modal-btn">✖&#xfe0e;</button>
             <div class="form-item edit-title-container">
                 <label for="edit-title">Title</label>
                 <input id="edit-title" type="text" name="edit-title" required>
@@ -75,26 +75,26 @@
             <fieldset class="form-item edit-priority">
                 <legend>Priority</legend>
                 <input type="radio" name="edit-priority" id="edit-priority-1" value="1" required>
-                <label for="edit-priority-1">Critical (1)</label>
+                <label class="priority-label" for="edit-priority-1">Critical (1)</label>
                 <input type="radio" name="edit-priority" id="edit-priority-2" value="2">
-                <label for="edit-priority-2">High (2)</label>
+                <label class="priority-label" for="edit-priority-2">High (2)</label>
                 <input type="radio" name="edit-priority" id="edit-priority-3" value="3">
-                <label for="edit-priority-3">Medium (3)</label>
+                <label class="priority-label" for="edit-priority-3">Medium (3)</label>
                 <input type="radio" name="edit-priority" id="edit-priority-4" value="4">
-                <label for="edit-priority-4">Low (4)</label>
+                <label class="priority-label" for="edit-priority-4">Low (4)</label>
             </fieldset>
-            <button type="submit">Edit Task</button>
+            <button type="submit" class="task-submit">Edit Task</button>
         </form>
     </dialog>
     <dialog class="modal new-project-modal">
         <form class="new-project-form" action="">
             <p class="form-header">New Project</p>
-            <button type="button" class="close-modal-btn">✖</button>
-            <div class="new-project-name-container">
+            <button type="button" class="close-modal-btn">✖&#xfe0e;</button>
+            <div class="new-project-name-container form-item">
                 <label for="new-project-name">Name</label>
                 <input type="text" name="new-project-name" id="new-project-name" required>
             </div>
-            <button type="submit">Add Project</button>
+            <button type="submit" class="add-project-btn">Add Project</button>
         </form>
     </dialog>
 </body>

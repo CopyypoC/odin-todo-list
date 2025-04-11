@@ -146,7 +146,7 @@ hr {
     grid-template:
         "checkbox title title title" 1fr
         "checkbox due-date priority delete-icon" 1fr 
-        / max-content 1fr 1fr 1fr
+        / max-content 1fr 1fr 1fr;
 }
 
 .task-checkbox {
@@ -214,4 +214,146 @@ input[type="checkbox"]:hover {
 .new-task-btn {
     padding: 14px 1.5rem;
     font-size: 1.1rem;
+}
+
+/* Modals */
+.modal {
+    border: 1px solid white;
+    border-radius: 12px;
+}
+
+.modal::backdrop {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+form {
+    position: relative;
+    background-color: var(--project-list-bg-color);
+    color: #ffffff;
+    padding: 20px;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 4px 10px;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+}
+
+input[type="text"],
+textarea,
+input[type="date"],
+input[type="time"] {
+    background-color: var(--main-bg-color);
+    border: 2px solid white;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+input[type="date"],
+input[type="time"] {
+    color: #ffffff;
+    cursor: pointer;
+}
+
+input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+input::-webkit-calendar-picker-indicator:hover {
+    cursor: pointer;
+    filter: invert(0);
+}
+
+form {
+    display: grid;
+    grid-template:
+        'header header' max-content
+        'title title' max-content
+        'desc desc' max-content
+        'due-date due-date' max-content
+        'priority priority' max-content
+        'submit submit' max-content / 1fr 1fr;
+    gap: 16px;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.form-header {
+    grid-area: header;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0 0 20px 0;
+}
+
+.new-title-container,
+.edit-title-container {
+    grid-area: title;
+}
+
+.new-title-description,
+.edit-title-description {
+    grid-area: desc;
+    width: 100%;
+}
+
+.new-due-date-container,
+.edit-due-date-container {
+    grid-area: due-date;
+    display: block;
+}
+
+.edit-priority,
+.new-priority {
+    grid-area: priority;
+    display: block;
+}
+
+input[type='radio']:hover,
+.priority-label {
+    cursor: pointer;
+}
+
+.task-submit {
+    grid-area: submit;
+    place-self: center;
+    padding: 10px 40px;
+}
+
+input[type='text'],
+textarea {
+    color: white;
+}
+
+.new-project-form {
+    padding: 30px;
+}
+
+.new-project-form,
+.new-project-name-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-project-btn {
+    margin-top: 20px;
+    padding: 10px;
 }
