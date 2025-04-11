@@ -110,7 +110,6 @@ taskListContainer.addEventListener('click', (e) => {
     if (e.target.className === 'task-title') {
         const uuid = e.target.closest('div[data-uuid]').dataset.uuid;
         currentTask = currentProject.getTaskFromUUID(uuid);
-        // Fill form with values before display
         fillFormValues();
         editTaskModal.showModal();
     }
@@ -354,6 +353,3 @@ function deserializeProjectList() {
         }
     }
 }());
-
-// check all tasks for compelted
-// fire click event on input checkbox for each complete task
