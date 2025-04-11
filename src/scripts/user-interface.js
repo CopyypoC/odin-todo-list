@@ -102,6 +102,8 @@ taskListContainer.addEventListener('click', (e) => {
     }
     // Checkbox
     if (e.target.classList.contains('task-checkbox')) {
+        const uuid = e.target.closest('div[data-uuid]').dataset.uuid;
+        currentTask = currentProject.getTaskFromUUID(uuid);
         applyCompletionStyle(e);
     }
     // Edit Task
@@ -132,7 +134,11 @@ function applyCompletionStyle(e) {
     const marginTop = taskItem.offsetHeight + 'px';
     let completedTasks = []
 
-    task.isCompleted = !task.isCompleted;
+    // Prevent toggle on programmatic clicks
+    if (e.pointerType !== '') {
+        task.isCompleted = !task.isCompleted;
+    }
+
     if (task.isCompleted === true) {
         taskCheckbox.checked = true;
         taskTitle.style.textDecoration = 'line-through';
@@ -151,6 +157,8 @@ function applyCompletionStyle(e) {
 
         taskTitle.style.textDecoration = '';
     }
+    Project.updateCurrent(currentProject);
+    projectList.saveToStorage();
 }
 
 function resetMarginTop(completedTasks) {
@@ -294,9 +302,10 @@ function deserializeProjectList() {
                 const dueDate = storageTask.dueDate.split('T');
                 const indexOfNum = storageTask.priority.search(/[1-4]/);
                 const priority = Number(storageTask.priority[indexOfNum]);
+                const isCompleted = storageTask.isCompleted;
                 const task = new Task(
                     storageTask.title, storageTask.description, dueDate[0],
-                    dueDate[1], priority, undefined, storageTask.uuid
+                    dueDate[1], priority, isCompleted, storageTask.uuid
                 );
                 currentProject.addTask(task);
             }
@@ -330,5 +339,21 @@ function deserializeProjectList() {
             displayNewProjectTitle(project);
         }
         displayProject();
+
+        for (const task of Object.values(currentProject)) {
+            if (task instanceof Task) {
+                if (task.isCompleted) {
+                    document.querySelector(`div[data-uuid="${task.uuid}"]`)
+                        .firstElementChild.click();
+
+                    task.isCompleted = true;
+                    Project.updateCurrent(currentProject);
+                    projectList.saveToStorage();
+                }
+            }
+        }
     }
 }());
+
+// check all tasks for compelted
+// fire click event on input checkbox for each complete task
