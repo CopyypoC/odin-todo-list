@@ -259,6 +259,7 @@ document.querySelector('.project-list').addEventListener('click', (e) => {
     switchCurrentProject(e);
     taskListContainer.replaceChildren();
     displayProject();
+    updateCheckboxStyles();
 
     console.log(`Switched Current Project: ${currentProject.name}`);
     console.log(currentProject);
@@ -284,6 +285,17 @@ function displayProject() {
     for (const task of Object.values(currentProject)) {
         if (task instanceof Task) {
             displayNewTask(task);
+        }
+    }
+}
+
+function updateCheckboxStyles() {
+    for (const task of Object.values(currentProject)) {
+        if (task instanceof Task) {
+            if (task.isCompleted) {
+                document.querySelector(`div[data-uuid="${task.uuid}"]`)
+                    .firstElementChild.click();
+            }
         }
     }
 }
@@ -338,18 +350,6 @@ function deserializeProjectList() {
             displayNewProjectTitle(project);
         }
         displayProject();
-
-        for (const task of Object.values(currentProject)) {
-            if (task instanceof Task) {
-                if (task.isCompleted) {
-                    document.querySelector(`div[data-uuid="${task.uuid}"]`)
-                        .firstElementChild.click();
-
-                    task.isCompleted = true;
-                    Project.updateCurrent(currentProject);
-                    projectList.saveToStorage();
-                }
-            }
-        }
+        updateCheckboxStyles();
     }
 }());
